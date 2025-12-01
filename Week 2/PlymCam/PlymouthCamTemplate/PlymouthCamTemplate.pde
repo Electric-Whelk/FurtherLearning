@@ -13,6 +13,13 @@ void setup()
   movie = new Movie(this, "video.mp4");
   movie.loop();
   currentFrame = createGraphics(width, height);
+  currentFrame.beginDraw();
+  
+    int pixelColour = currentFrame.get(400, 50);
+  System.out.println("Message to myself");
+  System.out.println(pixelColour);
+  System.out.println(hue(pixelColour));
+  
   // Don't worry about these for the time-being, we will use them later !
   // mqtt = new MQTTClient(this);
   // mqtt.connect("mqtt://broker.hivemq.com:1883");
@@ -30,16 +37,19 @@ void draw()
     currentFrame.fill(0);
     currentFrame.noStroke();
     // Mask off the lighthouse
-    currentFrame.rect(538, 140, 30, 90);
+    currentFrame.rect(538, 25, 30, 90);
     for (int y=0; y<height; y++) {
       for (int x=0; x<width; x++) {
         int pixelColour = currentFrame.get(x,y);
         float pixelHue = hue(pixelColour);
         float pixelSaturation = saturation(pixelColour);
         // If the pixel is in the green range...
-        if((pixelHue>20) && (pixelHue<70) && (pixelSaturation>100)) {
+        //green - >20 and <70
+        //if((pixelHue>20) && (pixelHue<70) && (pixelSaturation>100)) {
+        if((pixelHue>200) && (pixelHue<225)){
           // Overwrite the pixel with "concrete grey"
-          currentFrame.stroke(180,160,180);
+          //currentFrame.stroke(180,160,180);
+          currentFrame.stroke(127, 255, 212);
           currentFrame.point(x,y);
         }
       }
